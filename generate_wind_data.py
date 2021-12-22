@@ -31,28 +31,34 @@ def download_solar_data(api_key, coordinates, time_start = '2018-01-01', time_en
     """
     Download solar data for a particular set of coordinates [lat, long]
     """
+    ##
+    # Wind example
+    ##
     s = requests.session()
     api_base = 'https://www.renewables.ninja/api/'
     s.headers = {'Authorization': 'Token ' + api_key}
-    url = api_base + 'data/pv'
+
+    url = api_base + 'data/wind'
+
     args = {
-    'lat': coordinates[0],
-    'lon': coordinates[1],
-    'date_from': time_start,
-    'date_to': time_end,
-    'dataset': 'merra2',
-    'capacity': 1.0,
-    'system_loss': 0.1,
-    'tracking': 2,
-    'tilt': 35,
-    'azim': 180,
-    'format': 'json'
+        'lat': coordinates[0],
+        'lon': coordinates[1],
+        'date_from': time_start,
+        'date_to': time_end,
+        'capacity': 1.0,
+        'height': 100,
+        'turbine': 'Vestas V80 2000',
+        'format': 'json'
     }
 
     r = s.get(url, params=args)
+
     parsed_response = json.loads(r.text)
     data = pd.read_json(json.dumps(parsed_response['data']), orient='index')
-    data.to_csv('.\pvdata\pvdata_{:.3f}_{:.3f}.csv'.format(coordinates[0], coordinates[1]))
+    metadata = parsed_response['metadata']
+    data.to_csv('.\winddata\winddata_{:.3f}_{:.3f}.csv'.format(coordinates[0], coordinates[1]))
+
+
 
 def main(api_key, num_points, seed):
     """
@@ -68,7 +74,7 @@ def main(api_key, num_points, seed):
         download_solar_data(api_key, coordinates)
 
 if __name__ == '__main__':
-    api_key = '25e5d78ec61404e1ee241fc7d825581d8db46f05'
-    num_points = 6 
-    seed = 34
+    api_key = '08ba91fcda8044725615daab9227338b2baeae20'
+    num_points = 6
+    seed = 35
     main(api_key, num_points, seed)
