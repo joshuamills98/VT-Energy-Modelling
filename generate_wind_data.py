@@ -27,7 +27,7 @@ def plot_points(coordinates):
     map.save("map.html")
     webbrowser.open("map.html")
 
-def download_solar_data(api_key, coordinates, time_start = '2018-01-01', time_end = '2019-01-01'):
+def download_wind_data(api_key, coordinates, time_start = '2018-01-01', time_end = '2019-01-01'):
     """
     Download solar data for a particular set of coordinates [lat, long]
     """
@@ -71,10 +71,10 @@ def main(api_key, num_points, seed):
     coord_list = generate_coordinates(country="Netherlands", num_points=num_points) 
     plot_points(coord_list)
     for coordinates in coord_list:
-        download_solar_data(api_key, coordinates)
+        download_wind_data(api_key, coordinates)
 
 if __name__ == '__main__':
-    api_key = '08ba91fcda8044725615daab9227338b2baeae20'
-    num_points = 6
-    seed = 35
-    main(api_key, num_points, seed)
+    api_key = '38ad00aaa981b7910dc4a479672c3f9a0fa24efe'
+    coordinates = [[52.4085, 6.6146]]
+    for coords in coordinates:
+        download_wind_data(api_key, coords, time_start = '2018-01-01', time_end = '2019-01-01')

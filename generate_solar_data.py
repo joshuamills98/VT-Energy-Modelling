@@ -68,7 +68,7 @@ def main(api_key, num_points, seed):
         download_solar_data(api_key, coordinates)
 
 if __name__ == '__main__':
-    api_key = '25e5d78ec61404e1ee241fc7d825581d8db46f05'
-    num_points = 6 
-    seed = 34
-    main(api_key, num_points, seed)
+    api_key = '38ad00aaa981b7910dc4a479672c3f9a0fa24efe'
+    coordinates = [[52.4085, 6.6146]]
+    for coords in coordinates:
+        download_solar_data(api_key, coords, time_start = '2018-01-01', time_end = '2019-01-01')
