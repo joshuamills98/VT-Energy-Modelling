@@ -55,7 +55,7 @@ def map_regional_data(geojson_data_path,
             labels=False).add_to(chloro.geojson)
     folium.LayerControl().add_to(communities_map)
     display(communities_map)
-    communities_map.save(outfile= os.path.join('Plots', save_name))
+    # communities_map.save(outfile= os.path.join('Plots', save_name))
 
 if __name__ == '__main__':
     province_path = os.path.join('NL_provinces','provinces.geojson')
