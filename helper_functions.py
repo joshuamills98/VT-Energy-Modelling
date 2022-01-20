@@ -23,6 +23,20 @@ def get_coordinates(directory):
                             float(p2.findall(os.listdir(directory)[i])[0])])
     return coordinates
 
+def make_datetime(df):
+    """ Take on a timeseries dataframe and plot the average daily trend """
+    df['dow'] = df.index.dayofweek
+    df['doy'] = df.index.dayofyear
+    df['year'] = df.index.year
+    df['month'] = df.index.month
+    df['quarter'] = df.index.quarter
+    df['hour'] = df.index.hour
+    df['woy'] = df.index.weekofyear
+    df['dom'] = df.index.day # Day of Month
+    dowdict = {0:'Monday',1:'Tuesday',2:'Wednesday',3:'Thursday',4:'Friday',5:'Saturday',6:'Sunday'}
+    df['weekday'] = df['dow'].map(dowdict)
+    return df 
+
 
 if __name__ == '__main__':
     parse_data('winddata\winddata_51.103_6.037.csv')
